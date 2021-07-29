@@ -1,17 +1,51 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+        <Pagination :data='listData.page' @getData="getData"/>
+     <p v-for="(item,i) in  listData.list" :key='i'>
+         <List :data='item'/>
+     </p>
+
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import List from './components/List.vue'
+import Pagination from './components/Pagination.vue'
+import axios from 'axios'
 export default {
   name: 'App',
+  data(){
+    return{
+       listData:{page:{},list:[]}
+    }
+  },
   components: {
-    HelloWorld
+    List,
+    Pagination
+  },
+  mounted(){
+   this.getData()
+  },
+  methods:{
+    getData(pageIndex){
+      let url = `http://yapi.luckly-mjw.cn/mock/50/test/users?pageIndex=${pageIndex?pageIndex:1}`
+      axios.get(url)
+      .then((response)=>{
+        let {data}  = response
+        if(data.code == 200){
+          if(pageIndex){
+            data.data.page.pageIndex =pageIndex
+          }
+          console.log(data.data)
+             this.listData = data.data
+             console.log(this.listData)
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+    }
   }
 }
 </script>
