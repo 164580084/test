@@ -1,23 +1,16 @@
 # test
 
 ## Project setup
+第一步
 ```
 yarn install
 ```
-
+第二步
 ### Compiles and hot-reloads for development
 ```
 yarn serve
 ```
-
-### Compiles and minifies for production
-```
-yarn build
-```
-
-### Lints and fixes files
-```
-yarn lint
+即可
 ```
 
 ### Customize configuration
